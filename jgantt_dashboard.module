@@ -1,0 +1,72 @@
+<?php
+// $Id$
+/**
+ * @file
+ * jQuery Gratt
+ * Render a Gantt chart-like view for content dashboard.
+ *
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function jgantt_dashboard_permission() {
+  return array(
+    'administer uni dashboard chart' => array(
+      'title' => t('Administer uni dashboard chart'),
+    ),
+    'view uni dashboard chart' => array(
+      'title' => t('View uni dashboard chart'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function jgantt_dashboard_menu() {
+  $items = array();
+  $items['admin/config/jgantt_dashboard'] = array(
+    'title' => 'Dashboard settings',
+    'description' => 'Displays dashboard with a Gantt chart-like view.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('jgantt_dashboard_admin_settings'),
+    'access arguments' => array('administer uni dashboard chart'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'jgantt_dashboard.admin.inc',
+  );
+  $items['jgantt_dashboard'] = array(
+    'title' => 'Dashboard',
+    'description' => 'Displays dashboard with a Gantt chart-like view.',
+    'page callback' => 'jgantt_dashboard_build_view',
+    'access arguments' => array('view uni dashboard chart'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'jgantt_dashboard.page.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_libraries_info().
+ */
+function jgantt_dashboard_libraries_info() {
+  $libraries['jQuery.Gantt'] = array(
+    'name' => 'jQuery Gantt',
+    'vendor url' => 'http://taitems.github.com/jQuery.Gantt',
+    'download url' => 'https://github.com/taitems/jQuery.Gantt',
+    'version arguments' => array(
+     'file' => 'CHANGELOG.txt',
+     'pattern' => '@Version\s+([0-9a-zA-Z\.-]+)@',
+     'lines' => 1,
+    ),
+    'files' => array(
+      'js' => array(
+        'js/jquery.fn.gantt.js',
+      ),
+      'css' => array(
+        'css/style.css',
+      ),
+    ),
+  );
+  return $libraries;
+}

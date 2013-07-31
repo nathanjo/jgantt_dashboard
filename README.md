@@ -1,4 +1,4 @@
-jgantt_dashboard
+jGantt Content Dashboard
 ================
 
-jQuery.Gantt Content Dashboard
+Using the jQuery.Gantt library.
