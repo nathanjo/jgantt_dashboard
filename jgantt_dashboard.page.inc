@@ -21,13 +21,15 @@ function jgantt_dashboard_build_view() {
     return drupal_set_message($library['error message'] . ' ' . $error, 'error');
   }
 
+  $jgantt = url(libraries_get_path('jQuery.Gantt') . '/js/jquery.fn.gantt.js', array('absolute' => TRUE));
+
   $output .= <<<EOF
   <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 
 EOF;
 
   // Order of js declaration is a must
-  $output .= '<script src="' . $library . '"></script>';
+  $output .= '<script src="' . $jgantt . '"></script>';
 
   $output .= <<<EOF
 
